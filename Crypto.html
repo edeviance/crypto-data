@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Page Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<h1>Crypto data</h1>
+	<br />
+
+	<table class="table table-bordered table-striped" id="crypto_table">
+		<tr>
+	<!--<th>Id</th>-->
+			<th>Name</th>
+			<th>Symbol</th>
+			<th>Rank</th>
+			<th>Price(USD)</th>
+			<th>BTC</th>
+			<!--<th>24hr Vol</th>-->
+			<th>Market Cap</th>
+			<th>Available</th>
+			<th>Total</th>
+			<th>% change(1hr)</th>
+			<th>% change(24hr)</th>
+			<th>% change(7d)</th>
+			<!--<th>Last Updated</th>-->
+		</tr>
+
+	</table>
+
+	<script>
+		$(document).ready(function() {
+			$.getJSON("https://api.coinmarketcap.com/v1/ticker/", function(data) {
+
+				var crypto_data = '';
+				$.each(data, function(key, value) {
+					crypto_data += '<tr>';
+					//crypto_data += '<td>' + value.id + '</td>';
+					crypto_data += '<td>' + value.name + '</td>';
+					crypto_data += '<td>' + value.symbol + '</td>';
+					crypto_data += '<td>' + value.rank + '</td>';
+					crypto_data += '<td>' + value.price_usd.toLocaleString('en', {useGrouping:true}) + '</td>';
+					crypto_data += '<td>' + value.price_btc + '</td>';
+					/*crypto_data += '<td>' + value.h_volume_usd + '</td>';*/
+					crypto_data += '<td>' + value.market_cap_usd + '</td>';
+					crypto_data += '<td>' + value.available_supply + '</td>';
+					crypto_data += '<td>' + value.total_supply + '</td>';
+					crypto_data += '<td>' + value.percent_change_1h + '</td>';
+					crypto_data += '<td>' + value.percent_change_24h + '</td>';
+					crypto_data += '<td>' + value.percent_change_7d + '</td>';
+					/*crypto_data += '<td>' + value.last_updated + '</td>';*/
+					crypto_data += '</tr>';
+				});
+				$('#crypto_table').append(crypto_data);
+			});
+		});
+
+	</script>
+
+</body>
+
+
+</html>
