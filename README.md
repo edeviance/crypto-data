@@ -1,1 +1,3 @@
 # crypto-data
+
+A simple API call to fetch the cryptocurrencies data...
